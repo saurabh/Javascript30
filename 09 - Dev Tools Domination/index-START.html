@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+  
+  <!-- You can inspect this by right clicking the paragraph element in the devtools, selecting 'Break on..' and then selecting 'attribute modifications'.  Then when you click it, it will run the debugger and pause it where the attributes change -->
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+
+    // Regular
+    console.log('Hello');
+
+    // Interpolated
+    console.log('Oh look a poop emoji: %s', '💩');
+
+    // Styled
+    console.log('%c Stylish text', 'font-size: 10px; background: yellow; text-shadow: 2px 2px 0 green');
+    
+    // warning!
+    console.warn('WARNING!');
+
+    // Error :|
+    console.error('Oh Shiit');
+
+    // Info
+    console.info('Crocodiles eat 3-4 people per year');
+
+    // Testing
+    const p = document.querySelector('p');
+
+    console.assert(p.classList.contains('ouch'), 'That is wrong!');
+
+    // clearing
+    console.clear();
+
+    // Viewing DOM Elements
+    console.log(p); // displays the whole element
+    console.dir(p); // displays the element in the form of a drop down with all the methods classes properties etc.
+
+    // Grouping together
+    dogs.forEach(dog => {
+      console.group(`${dog.name}`);  // can use groupCollapsed instead of group which will collapse the group in the console.
+      console.log(`This is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years old`);
+      console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+      console.groupEnd(`${dog.name}`);
+    });
+
+    // counting
+    console.count('Saurabh');
+    console.count('Rashmi');
+    console.count('Zephyr');
+    console.count('Saurabh');
+    console.count('Rashmi');
+    console.count('Zephyr');
+    console.count('Saurabh');
+    console.count('Rashmi');
+    console.count('Zephyr');
+
+    // timing
+    console.time('fetching data');
+    fetch('https://api.github.com/users/saurabh')
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('fetching data');
+        console.log(data);
+      });
+
+    console.table(dogs);
+
+  </script>
+</body>
+</html>
