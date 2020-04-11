@@ -57,9 +57,24 @@ video.addEventListener('play', updateButton);
 video.addEventListener('pause', updateButton);
 // skip buttons
 skipButtons.forEach(button => button.addEventListener('click', skip));
+document.addEventListener('keyup', e => { 
+  if (e.keyCode === 37) {
+    video.currentTime += -10
+  } else if (e.keyCode === 39) {
+    video.currentTime += 25
+  }
+});
 // volume & speed sliders
 ranges.forEach(range => range.addEventListener('change', handleRangeUpdate));
 ranges.forEach(range => range.addEventListener('mousemove', handleRangeUpdate));
+document.addEventListener('keyup', e => { // Code does not move the slider 
+  console.log(video.volume)
+  if (e.keyCode === 38) {
+    video.volume += .05
+  } else if (e.keyCode === 40) {
+    video.volume += -.05
+  }
+});
 // player progress bar
 video.addEventListener('timeupdate', handleProgress);
 let mousedown = false;
