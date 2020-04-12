@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Key Detection</title>
+    <script
+      type="text/javascript"
+      src="https://www.cornify.com/js/cornify.js"
+    ></script>
+  </head>
+  <body>
+    <h2>Silly little script that does something when you talk 'code'</h2>
+
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+      }
+    </style>
+
+    <script>
+      let pressed = [];
+      const secretCode = 'code';
+
+      window.addEventListener('keyup', (e) => {
+        pressed.push(e.key);
+        pressed.splice(
+          -secretCode.length - 1,
+          pressed.length - secretCode.length
+        );
+
+        if (pressed.join('').includes(secretCode)) {
+          console.log('DING DING DING!');
+          cornify_add();
+        }
+      });
+
+      // 1st Attempt
+      // const secretCode = '38403840373937396665'
+      // window.addEventListener('keyup', e => {
+      //   pressed.push(e.keyCode)
+      //   if (pressed.join('') === secretCode ) {
+      //     console.log('KOONAMMIII');
+      //     cornify_add();
+      //   }
+      //   if (pressed.length >= 10) {
+      //     pressed = [];
+      //     console.log('cleared');
+      //   }
+      // })
+    </script>
+  </body>
+</html>
