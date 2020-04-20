@@ -13,6 +13,7 @@
 
       const recognition = new SpeechRecognition();
       recognition.interimResults = true;
+      // This makes sure that results are available while we are speaking and not after we are done speaking.
 
       let p = document.createElement('p');
       const words = document.querySelector('.words');
@@ -23,6 +24,7 @@
           .map(result => result[0])
           .map(result => result.transcript)
           .join('')
+        //  e.results is a list, not an array and each 0th element of the list is the text data we need. So we map transcript on result[0]. Then we return transcript and join everything so that it forms a single string.
 
         p.textContent = transcript;
         if(e.results[0].isFinal) {
@@ -33,7 +35,7 @@
       });
 
       recognition.addEventListener('end', recognition.start);
-      
+      // This works only for one paragraph so we need to set ‘end’ event to run SpeechRecognition.start() again.      
       recognition.start();
 
     </script>
