@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Understanding JavaScript's Capture</title>
+  </head>
+  <body class="bod">
+    <div class="one">
+      <div class="two">
+        <div class="three"></div>
+      </div>
+    </div>
+
+    <style>
+      html {
+        box-sizing: border-box;
+      }
+
+      *,
+      *:before,
+      *:after {
+        box-sizing: inherit;
+      }
+
+      div {
+        width: 100%;
+        padding: 100px;
+      }
+
+      .one {
+        background: thistle;
+      }
+
+      .two {
+        background: mistyrose;
+      }
+
+      .three {
+        background: coral;
+      }
+    </style>
+
+    <button></button>
+    <script>
+
+      // When you click on the innermost div, we are also clicking on its parents. So the event bubbles and calls out class ‘three’ then ‘two’ then ‘one’, moving from the innermost div to the outermost.
+      // First, the capture happens in which the browser ripples down from the html to the body to the parents to our coral div. It starts at the coral and it bubbles up, goes on triggering events the way up.
+      // capture:true|false is passed as an object in the third parameter of addEventListener
+      // once: true|false is passed as the fourth parameter to addEventListener and this runs the bubbling or capturing exactly once and then unbinds itself which is similar to a removeEventListener();
+      // e.stopPropagation(); stops the bubbling at the current step
+
+      const divs = document.querySelectorAll('div');
+      const button = document.querySelector('button');
+
+      function logText(e) {
+        console.log(this.classList.value);
+        // e.stopPropagation(); // stop bubbling!
+      }
+
+      divs.forEach((div) => div.addEventListener('click', logText, {
+          capture: false,
+          once: true,
+        })
+      );
+
+      button.addEventListener(
+        'click',
+        () => {
+          console.log('Click!!!');
+        },
+        {
+          once: true,
+        }
+      );
+    </script>
+  </body>
+</html>
